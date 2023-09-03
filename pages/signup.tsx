@@ -76,7 +76,7 @@ const SignUP = () => {
 
         <button
           className="w-full rounded bg-[#e50914] py-3 font-semibold"
-          onClick={() => setLogin(false)}
+          onClick={() => setLogin(true)}
         >
           Sign up
         </button>
