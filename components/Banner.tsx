@@ -1,9 +1,11 @@
+import { modalState, movieState } from "@/atoms/modalAtom";
 import { Movie } from "@/typings";
 import { baseUrl } from "@/utils/movie";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
+import { useRecoilState } from "recoil";
 
 type Props = {
   topRated: Movie[];
@@ -12,6 +14,9 @@ type Props = {
 
 const Banner = ({ topRated, trendingNow }: Props) => {
   const [movie, setMovie] = useState<Movie | null>(null);
+  const [showModal, setShowModal] = useRecoilState(modalState);
+  const [currentmovie, setCurrentMovie] = useRecoilState(movieState);
+
   useEffect(() => {
     setMovie(topRated[Math.floor(Math.random() * topRated.length)]);
   }, [topRated]);
@@ -42,9 +47,15 @@ const Banner = ({ topRated, trendingNow }: Props) => {
           <FaPlay className="w-4 h-4 text-black md:h-5 md:w-5" />
           Play
         </button>
-        <button className="bannerButton bg-[gray]/70">
+        <button
+          className="bannerButton bg-[gray]/70"
+          onClick={() => {
+            setShowModal(true);
+            setCurrentMovie(movie);
+          }}
+        >
           {" "}
-          <InformationCircleIcon className="w-5 h-5 md:h-6 md:w-6" /> More Info
+          <InformationCircleIcon className="w-5 h-5 md:h-6 md:w-6" /> Trailer
         </button>
       </div>
     </div>
